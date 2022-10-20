@@ -11,15 +11,74 @@ app.use(express.json()) // body-parsor
 app.use(express.urlencoded({extended:true}))
 
 const { Post } = require('./Model/Post.js')
+const { Counter } = require('./Model/Counter.js')
 
 app.get('/',(req,res)=>{
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
 
-app.post('/api/test',(req,res)=>{
-  const CommunityPost = new Post({ title: '제목입니다.',content:'내용입니다.' });
-  CommunityPost.save().then(()=>{
+app.post('/api/post/submit',(req,res)=>{
+  let temp = req.body;
+  Counter.findOne({name:'counter'})
+  .exec()
+  .then((counter)=>{
+    temp.postNum = counter.postNum;
+    const CommunityPost = new Post(temp);
+    CommunityPost.save().then(()=>{
+      // 성공했을시 카운터 1증가 해야한다
+      // 업데이트 원 은 인자를 두개받는다 
+      // 첫번째 누구 두번째 어떻게할껀지
+      Counter.updateOne({name:'counter'},{$inc : {postNum : 1}})
+      .then(()=>{
+        res.status(200).json({success: true})
+      })
+    })
+  })
+  .catch((err)=>{
+    res.status(400).json({success:false})
+  })
+})
+
+app.get('/api/post/list',(req,res)=>{
+  Post.find().exec().then((doc) => {
+    res.status(200).json({success: true,postList : doc})
+  }).catch((err)=>{
+    res.status(400).json({ success:false})
+  })
+})
+
+app.post('/api/post/detail',(req,res)=>{
+  Post.findOne({postNum : Number(req.body.postNum)})
+  .exec()
+  .then((doc) => {
+    res.status(200).json({success: true, post : doc})
+  }).catch((err)=>{
+    res.status(400).json({ success:false})
+  })
+})
+
+app.post('/api/post/edit',(req,res)=>{
+  console.log(req.body)
+  let temp = {
+    title:req.body.title,
+    content: req.body.content,
+  }
+  Post.updateOne({postNum : Number(req.body.postNum)},{$set:temp})
+  .exec()
+  .then(() => {
     res.status(200).json({success: true})
+  }).catch((err)=>{
+    res.status(400).json({ success:false})
+  })
+})
+
+app.post('/api/post/delete',(req,res)=>{
+  Post.deleteOne({postNum : Number(req.body.postNum)})
+  .exec()
+  .then(() => {
+    res.status(200).json({success: true})
+  }).catch((err)=>{
+    res.status(400).json({ success:false})
   })
 })
 

@@ -20,7 +20,7 @@ const List = () => {
 
   return (
     <ListDiv>
-      <h3>리스트다요!</h3>
+      <h3>リスト です。</h3>
       {postList.map((it,idx)=>{
         return (
         <Link to={`/post/${it.postNum}`} key={idx}>

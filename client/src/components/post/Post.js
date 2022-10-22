@@ -1,16 +1,19 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { PostContainer,PostInner } from '../style/PostCSS'
+import { PostContainer,PostInner } from '../../style/PostCSS'
+import ImageUpload from './ImageUpload';
 import Swal from "sweetalert2";
 import axios from 'axios'
 
 const Post = () => {
 
 const navigate = useNavigate()
+
 const [data,setData] = useState({
   title:'',
   content:'',
 })
+const [image,setImage] = useState('')
 
 const handleInputValue = (key) => (e) => {
   setData({...data,[key]: e.target.value})
@@ -27,6 +30,7 @@ const onSubmit = () => {
   let body = {
     title: data.title,
     content: data.content,
+    image:image,
   };
   
   axios.post('/api/post/submit',body).then((res)=>{
@@ -51,6 +55,7 @@ const onSubmit = () => {
       <PostInner>
         <span>글 작성하기</span>
         <input placeholder='제목을 입력해 주세요!' onChange={handleInputValue('title')}></input>
+        <ImageUpload setImage={setImage}/>
         <textarea placeholder='내용을 입력해 주세요!' onChange={handleInputValue('content')}></textarea>
         <button onClick={onSubmit}>등록</button>
       </PostInner>

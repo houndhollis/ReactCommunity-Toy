@@ -45,6 +45,7 @@ const Detail = () => {
   return (
     <DetailDiv>
       <DetailItem>
+        {postInfo.image?<img style={{width:'100%', height:'auto'}} src={`http://localhost:5001/${postInfo.image}`} /> : null}
         <p>{postInfo.title}</p>
         <div>
           <span>{postInfo.content}</span>

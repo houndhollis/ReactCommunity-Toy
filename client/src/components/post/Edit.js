@@ -1,7 +1,6 @@
 import React,{useEffect ,useState} from 'react'
-import { useParams ,Link,useNavigate } from 'react-router-dom'
-import { DetailDiv,DetailItem } from '../style/DetailCSS'
-import { PostContainer,PostInner } from '../style/PostCSS'
+import { useParams ,useNavigate } from 'react-router-dom'
+import { PostContainer,PostInner } from '../../style/PostCSS'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
@@ -43,7 +42,6 @@ const onSubmit = () => {
   };
   
   axios.post('/api/post/edit',body).then((res)=>{
-    console.log(res)
     if(res.data.success){
       Swal.fire({
         title:'글 수정 성공!',

@@ -5,6 +5,7 @@ max-width: 1100px;
 margin: 0 auto;
 padding: 0 3%;
 margin-top: 3rem;
+padding-bottom: 3rem;
  & h3{
    margin-bottom: 20px;
    font-size: 2rem;

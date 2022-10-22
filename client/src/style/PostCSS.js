@@ -36,8 +36,8 @@ color: #4f4f4f;
   border-radius: 5px;
   border: 1px solid #06afff;
   color: #fff;
-  font-weight: bold;
   font-size: 1.5rem;
+  font-family:KOTRAHOPE;
   &:hover{
     color: #06afff;
     background-color: #fff;

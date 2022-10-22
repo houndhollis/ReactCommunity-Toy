@@ -11,7 +11,7 @@ const Header = () => {
          <Link to={'/'}><span>Omoide</span></Link>
         </Title>
         <ImgBox>
-          <Link to={'/post'}><img src={`${process.env.PUBLIC_URL}/assets/writing.png`}/></Link>
+          <Link to={'/post'}><img src={`${process.env.PUBLIC_URL}/assets/writing.png`} alt='글쓰기'/></Link>
           <Link to={'/login'}><span>로그인</span></Link>
           {/* <img src={`${process.env.PUBLIC_URL}/assets/user.png`}/> */}
         </ImgBox>

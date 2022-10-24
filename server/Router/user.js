@@ -7,7 +7,7 @@ router.post('/register',(req,res)=>{
   let temp = req.body
   Counter.findOne({name:'counter'}).then((doc)=>{
     temp.userNum = doc.userNum;
-    const userData = new User(req.body);
+    const userData = new User(temp);
     userData.save(()=>{
       Counter.updateOne({name:'counter'}, {$inc : {userNum : 1}})
       .then(()=>{

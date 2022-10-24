@@ -12,6 +12,8 @@ app.use(express.json()) // body-parsor
 app.use(express.urlencoded({extended:true}))
 app.use('/api/post',require('./Router/post.js'))
 app.use('/api/user',require('./Router/user.js'))
+app.use("/api/reple", require("./Router/reple.js"));
+
 // const { Post } = require('./Model/Post.js')
 // const { Counter } = require('./Model/Counter.js')
 

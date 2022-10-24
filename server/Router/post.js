@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router()
 const multer = require('multer')
+
 const { Post } = require('../Model/Post.js')
 const { Counter } = require('../Model/Counter.js')
-const {User} =require('../Model/User.js')
+const { User } = require('../Model/User.js')
 router.post('/submit',(req,res)=>{
   let temp = {
     title:req.body.title,

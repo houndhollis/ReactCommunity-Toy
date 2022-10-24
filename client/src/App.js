@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { loginUser, clearUser } from './Reducer/userSlice'
 import firebase from "./firebase.js";
 
+import PostArea from "./components/post/PostArea";
 import Header from "./components/Header";
 import Login from "./components/user/Login";
 import Post from "./components/post/Post";
 import List from "./components/List";
-import Detail from "./Detail";
 import Edit from "./components/post/Edit";
 import Register from "./components/user/Register";
 import GlobalStyle from "./style/GlobalStyle";
@@ -36,7 +36,7 @@ function App() {
          <Route path="/login" element={<Login/>}></Route>
          <Route path="/register" element={<Register/>}></Route>
          <Route path="/post" element={<Post/>}></Route>
-         <Route path="/post/:postNum" element={<Detail/>}></Route>
+         <Route path="/post/:postNum" element={<PostArea/>}></Route>
          <Route path="/edit/:postNum" element={<Edit/>}></Route>
        </Routes>
     </div>

@@ -1,8 +1,12 @@
 import React from 'react'
 import { HeaderContainer,HeaderInner,Title,ImgBox} from '../style/HeaderCSS'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import firebase from '../firebase.js'
 
 const Header = () => {
+  const navigate = useNavigate()
+  const user = useSelector((state) => state.user)
 
   return (
     <HeaderContainer>
@@ -12,8 +16,7 @@ const Header = () => {
         </Title>
         <ImgBox>
           <Link to={'/post'}><img src={`${process.env.PUBLIC_URL}/assets/writing.png`} alt='글쓰기'/></Link>
-          <Link to={'/login'}><span>로그인</span></Link>
-          {/* <img src={`${process.env.PUBLIC_URL}/assets/user.png`}/> */}
+          {user.accessToken ==='' ? <Link to={'/login'}><span>로그인</span></Link>:<span onClick={()=>{firebase.auth().signOut();navigate('/')}}>로그아웃</span>}
         </ImgBox>
       </HeaderInner>
     </HeaderContainer>

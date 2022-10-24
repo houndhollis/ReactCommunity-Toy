@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PostContainer,PostInner } from '../../style/PostCSS'
 import ImageUpload from './ImageUpload';
 import Swal from "sweetalert2";
@@ -7,6 +8,7 @@ import axios from 'axios'
 
 const Post = () => {
 
+const user = useSelector((state)=>state.user)
 const navigate = useNavigate()
 
 const [data,setData] = useState({
@@ -14,6 +16,17 @@ const [data,setData] = useState({
   content:'',
 })
 const [image,setImage] = useState('')
+
+useEffect(()=>{
+  if(!user.accessToken){
+    Swal.fire({
+      title:'접근 에러',
+      text:'로그인 한 회원만 글 작성 가능합니다.',
+      icon:'error',
+    })
+    navigate('/login')
+  }
+},[])
 
 const handleInputValue = (key) => (e) => {
   setData({...data,[key]: e.target.value})
@@ -31,6 +44,7 @@ const onSubmit = () => {
     title: data.title,
     content: data.content,
     image:image,
+    uid: user.uid,
   };
   
   axios.post('/api/post/submit',body).then((res)=>{

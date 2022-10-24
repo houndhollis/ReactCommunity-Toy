@@ -6,6 +6,8 @@ import axios from 'axios'
 
 const Register = () => {
   const navigate = useNavigate()
+  const [nameCheck , setNameCheck] = useState(false)
+  const [nameInfo,setNameInfo] = useState('')
   const [userInfo,setUserInfo] = useState({
     name:'',
     email:'',
@@ -15,6 +17,25 @@ const Register = () => {
   const handleInputValue = (key) => (e) => {
     setUserInfo({...userInfo,[key]: e.target.value})
   }
+  const NameCheckFun = (e) =>{
+    e.preventDefault()
+    if(!userInfo.name){
+      alert('닉네임을 입력해주세요.')
+    }
+    let body = {
+      displayName : userInfo.name
+    }
+    axios.post('/api/user/namecheck',body).then((res)=>{
+      if(res.data.success){
+        if(res.data.check){
+          setNameCheck(true)
+          setNameInfo('사용 가능한 닉네임입니다.')
+        }else{
+          setNameInfo('사용 불가능한 닉네임 입니다.')
+        }
+      }
+    })
+  } 
 
   const OnRegister = async (e) =>{
     e.preventDefault()
@@ -24,6 +45,9 @@ const Register = () => {
     }
     if(pw !== pwCheck){
       alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+    }
+    if(!nameCheck){
+      return alert('닉네임 중복 검사를 해주세요!')
     }
     let createdUser = await firebase
     .auth()
@@ -51,7 +75,9 @@ const Register = () => {
       <RegisterInner>
       <form>
         <label >닉네임</label>
-        <input placeholder='닉네임 기입해주세요!' type='text' onChange={handleInputValue('name')}></input>
+        <input placeholder='닉네임 기입해주세요!' type='text' onChange={handleInputValue('name')} disabled={nameCheck}></input>
+        {nameInfo}
+        <button onClick={(e)=>NameCheckFun(e)}>닉네임 중복 검사</button>
         <label >이메일</label>
         <input placeholder='이메일 기입해주세요!' type='text' onChange={handleInputValue('email')}></input>
         <label>비밀번호</label>

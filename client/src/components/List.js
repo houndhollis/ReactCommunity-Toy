@@ -25,6 +25,7 @@ const List = () => {
         return (
         <Link to={`/post/${it.postNum}`} key={idx}>
           <ListItem >
+              <p>작성자 : {it.author.displayName}</p>
               <p>제목 : {it.title}</p>
               <span>내용 : {it.content}</span>
           </ListItem>

@@ -1,5 +1,6 @@
 import React,{useEffect ,useState} from 'react'
 import { useParams ,Link ,useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 import { DetailDiv,DetailItem } from './style/DetailCSS'
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -8,6 +9,7 @@ const Detail = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [postInfo,setPostInfo] = useState([])
+  const user = useSelector((state)=> state.user)
 
   useEffect(()=>{
     const body = {
@@ -45,14 +47,15 @@ const Detail = () => {
   return (
     <DetailDiv>
       <DetailItem>
-        {postInfo.image?<img style={{width:'100%', height:'auto'}} src={`http://localhost:5001/${postInfo.image}`} /> : null}
+        {postInfo.image?<img style={{width:'100%', height:'auto'}} src={`http://localhost:5001/${postInfo.image}`} alt=''/> : null}
         <p>{postInfo.title}</p>
+        <p>{postInfo.author?.displayName}</p>
         <div>
           <span>{postInfo.content}</span>
-          <div>
+          {user.uid === postInfo.author?.uid  && <div>
            <Link to={`/edit/${postInfo.postNum}`}><button className='edit'>수정</button></Link> 
             <button onClick={()=>DeleteHandler()} className='delete'>삭제</button>
-          </div>
+          </div>}
         </div>
       </DetailItem>
     </DetailDiv>

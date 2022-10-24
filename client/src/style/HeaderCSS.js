@@ -33,6 +33,7 @@ align-items: center;
      font-size: 1.5rem;
      font-family:KOTRAHOPE;
      color: #4f4f4f;
+     cursor: pointer;
   }
 `
 

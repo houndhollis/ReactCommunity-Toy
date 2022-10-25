@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router()
+const multer = require('multer')
 const { User } = require('../Model/User.js')
 const { Counter } = require('../Model/Counter.js')
 
@@ -32,6 +33,42 @@ router.post('/namecheck',(req,res)=>{
   .catch((err)=>{
     res.status(400).json({success:false})
   })
+})
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "image/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage }).single("file");
+
+router.post("/profile/img", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(400).json({ success: false });
+    } else {
+      res.status(200).json({success: true ,filepath:res.req.file.path })
+    }
+  });
+});
+
+router.post("/profile/update",(req,res)=>{
+  console.log(req.body)
+  let temp = {
+    photoURL: req.body.photoURL,
+  };
+  User.updateOne({ uid: req.body.uid }, { $set: temp })
+    .exec()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
 })
 
 module.exports = router;

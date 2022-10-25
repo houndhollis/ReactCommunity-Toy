@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import { RepleUploadContainer } from '../../style/RepleCSS'
 
 const RepleUpload = (props) => {
   const [reple,setReple] = useState('')
@@ -19,9 +20,9 @@ const RepleUpload = (props) => {
   }
 
   axios.post('/api/reple/submit',body).then((res)=>{
-    setReple('')
     if(res.data.success){
       alert('댓글 작성 성공')
+      window.location.reload()
     }else{
       alert('댓글 작성 실패')
     }
@@ -29,12 +30,12 @@ const RepleUpload = (props) => {
   }
 
   return (
-    <div>
+    <RepleUploadContainer>
       <form>
-        <input type='text' value={reple} onChange={(e)=>setReple(e.target.value)}/>
+        <input placeholder='댓글 작성 해주세요' type='text' value={reple} onChange={(e)=>setReple(e.target.value)}/>
         <button onClick={(e)=>{SubmitHandler(e)}}>등록</button>
       </form>
-    </div>
+    </RepleUploadContainer>
   )
 }
 

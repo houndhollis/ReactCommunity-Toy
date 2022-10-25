@@ -20,6 +20,9 @@ const Title = styled.div`
      font-size: 3rem;
      font-family:KOTRAHOPE;
      color: #4f4f4f;
+     @media screen and (max-width: 477px) {
+      font-size: 2.7rem;
+     }
    }
 `
 const ImgBox = styled.div`
@@ -27,13 +30,21 @@ display: flex;
 align-items: center;
  img{
    width: 34px;
-   margin-right: 15px;
+   margin-right: 5px;
+   @media screen and (max-width: 477px) {
+   width: 30px;
+   margin-top: 5px;
+   }
  }
  & span{
      font-size: 1.5rem;
      font-family:KOTRAHOPE;
      color: #4f4f4f;
+     margin-right: 10px;
      cursor: pointer;
+  @media screen and (max-width: 477px) {
+     font-size: 1.2rem;
+   }
   }
 `
 

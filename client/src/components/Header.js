@@ -16,7 +16,13 @@ const Header = () => {
         </Title>
         <ImgBox>
           <Link to={'/post'}><img src={`${process.env.PUBLIC_URL}/assets/writing.png`} alt='글쓰기'/></Link>
-          {user.accessToken ==='' ? <Link to={'/login'}><span>로그인</span></Link>:<span onClick={()=>{firebase.auth().signOut();navigate('/')}}>로그아웃</span>}
+          {user.accessToken ==='' ? <Link to={'/login'}><span>로그인</span></Link>
+          :
+          <>
+          <Link to={'/mypage'}><span>마이 페이지</span></Link>
+          <span onClick={()=>{firebase.auth().signOut();navigate('/')}}>로그아웃</span>
+          </>
+          }
         </ImgBox>
       </HeaderInner>
     </HeaderContainer>

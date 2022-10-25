@@ -1,33 +1,35 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import { ListDiv,ListItem } from '../style/ListCSS'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import Avatar from 'react-avatar'
+import moment from "moment";
+import "moment/locale/ko";
 
-const List = () => {
-
-  const [postList ,setPostList] = useState([])
-
-  useEffect(()=>{
-    axios.get('/api/post/list')
-    .then((res)=>{
-      setPostList(res.data.postList.sort((a,b)=>b.postNum-a.postNum))
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  },[])
-
+const List = (props) => {
+  const SetTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format("YYYY년 MMMM Do, hh:mm") + "(수정됨)";
+    } else {
+      return moment(a).format("YYYY년 MMMM Do, hh:mm");
+    }
+  };
 
   return (
     <ListDiv>
-      <h3>リスト です。</h3>
-      {postList.map((it,idx)=>{
+      <h3>추억 저장소。</h3>
+      {props.postList.map((it,idx)=>{
         return (
         <Link to={`/post/${it.postNum}`} key={idx}>
           <ListItem >
-              <p>작성자 : {it.author.displayName}</p>
-              <p>제목 : {it.title}</p>
-              <span>내용 : {it.content}</span>
+              <h2>{it.title}</h2>
+              <div className='userBox'>
+                <Avatar size='40' round={true} src={it.author.photoURL}/>
+                <div className='userInfo'>
+                  <p className='author'>{it.author.displayName}</p>
+                  <p className='time'>{SetTime(it.createdAt, it.updatedAt)}</p>
+                </div>
+              </div>
+              <p className='postContent'>{it.content}</p>
           </ListItem>
         </Link>
         )

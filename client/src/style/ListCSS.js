@@ -1,29 +1,57 @@
 import styled from "@emotion/styled";
 
 const ListDiv = styled.div`
-max-width: 1100px;
-margin: 0 auto;
-padding: 0 3%;
-margin-top: 3rem;
+margin-top: 2.5rem;
  & h3{
-   margin-bottom: 20px;
-   font-size: 2rem;
+   margin-bottom: 2rem;
+   font-size: 2.5rem;
+   font-family: KOTRAHOPE;
+   font-weight: 300;
+   color: #4f4f4f;
  }
 `
 const ListItem = styled.div`
-   margin-bottom: 1.5rem;
-   border: 1px solid #06afff;
+   width: 100%;
+   height: 172px;
+   margin-bottom: 2rem;
+   border: 1px solid #e6e6e6;
    border-radius: 5px;
-   padding: 10px;
-   & p {
-     margin-bottom: 1rem;
-     font-size: 16px;
-     font-weight: 600;
+   padding: 15px;
+   & h2{
+     padding-top: 5px;
+     margin-bottom: 15px;
    }
-   & span{
-     font-size: 14px;
-     color: #3e3e3e;
-     font-weight: 500;
+   .userBox{
+     display: flex;
+     align-items: center;
+     margin-bottom: 1rem;
+     border-bottom: 1px solid #e6e6e6;
+     padding-bottom: 5px;
+     .userInfo{
+      margin-top: 2px;
+      margin-left: 5px;
+      .author{
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .time{
+        font-size: 12px;
+        color: #636363;
+        font-weight: 500;
+        margin-top: 5px;
+      }
+     }
+   }
+   .postContent{
+     padding: 0 5px 5px 5px;
+     /* word-wrap: break-word; */
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space:nowrap;
+   }
+   transition: 0.3s;
+   &:hover{
+     transform: scale(1.01);
    }
 `
 

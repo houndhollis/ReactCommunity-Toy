@@ -21,7 +21,6 @@ const Login = () => {
    return alert('빈칸을 채워주세요')
   }try{
     await firebase.auth().signInWithEmailAndPassword(email,pw)
-    console.log('로그인 성공')
     navigate('/')
   }catch(error){
    if(error.code === 'auth/user-not-found'){

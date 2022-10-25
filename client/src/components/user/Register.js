@@ -7,6 +7,7 @@ import axios from 'axios'
 const Register = () => {
   const navigate = useNavigate()
   const [nameCheck , setNameCheck] = useState(false)
+  const [Flag, setFlag] = useState(false);
   const [nameInfo,setNameInfo] = useState('')
   const [userInfo,setUserInfo] = useState({
     name:'',
@@ -20,10 +21,10 @@ const Register = () => {
   const NameCheckFun = (e) =>{
     e.preventDefault()
     if(!userInfo.name){
-      alert('닉네임을 입력해주세요.')
+    return alert('닉네임을 입력해주세요.')
     }
     let body = {
-      displayName : userInfo.name
+      displayName : userInfo.name,
     }
     axios.post('/api/user/namecheck',body).then((res)=>{
       if(res.data.success){
@@ -38,13 +39,17 @@ const Register = () => {
   } 
 
   const OnRegister = async (e) =>{
+    setFlag(true);
     e.preventDefault()
     const {name,email,pw,pwCheck} = userInfo
     if(!(name && email && pw && pwCheck)){
-      alert('모든 값을 넣어주세요')
+     return alert('모든 값을 넣어주세요')
+    }
+    if(pw.length < 8){
+     return alert('비밀번호는 8자리 이상이여야 합니다.')
     }
     if(pw !== pwCheck){
-      alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+     return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
     }
     if(!nameCheck){
       return alert('닉네임 중복 검사를 해주세요!')
@@ -54,14 +59,17 @@ const Register = () => {
     .createUserWithEmailAndPassword(email,pw);
     await createdUser.user.updateProfile({
       displayName: name,
+      photoURL: "https://kr.object.ncloudstorage.com/react-community/user/profile.png",
     });
     
     let body = {
       email : createdUser.user.multiFactor.user.email,
       displayName : createdUser.user.multiFactor.user.displayName,
-      uid : createdUser.user.multiFactor.user.uid
+      uid : createdUser.user.multiFactor.user.uid,
+      photoURL: "https://kr.object.ncloudstorage.com/react-community/user/profile.png",
     };
     axios.post('/api/user/register',body).then((res)=>{
+      setFlag(false);
       if(res.data.success){
         navigate('/login')
       }else{
@@ -81,10 +89,10 @@ const Register = () => {
         <label >이메일</label>
         <input placeholder='이메일 기입해주세요!' type='text' onChange={handleInputValue('email')}></input>
         <label>비밀번호</label>
-        <input placeholder='비밀번호 기입해주세요!' autoComplete='on' type='password' onChange={handleInputValue('pw')}></input>
+        <input minLength={8} placeholder='비밀번호 기입해주세요!' autoComplete='on' type='password' onChange={handleInputValue('pw')}></input>
         <label>비밀번호 확인</label>
-        <input placeholder='비밀번호 확인입니다.' autoComplete='on' type='password' onChange={handleInputValue('pwCheck')}></input>
-        <button onClick={(e)=>OnRegister(e)}>회원가입</button>
+        <input minLength={8} placeholder='비밀번호 확인입니다.' autoComplete='on' type='password' onChange={handleInputValue('pwCheck')}></input>
+        <button disabled={Flag} onClick={(e)=>OnRegister(e)}>회원가입</button>
       </form>
       </RegisterInner>
     </RegisterContainer>

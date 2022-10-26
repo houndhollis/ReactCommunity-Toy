@@ -3,6 +3,8 @@ const router = express.Router()
 const multer = require('multer')
 const { User } = require('../Model/User.js')
 const { Counter } = require('../Model/Counter.js')
+const SetUpload  = require('../Util/upload.js')
+
 
 router.post('/register',(req,res)=>{
   let temp = req.body
@@ -35,29 +37,35 @@ router.post('/namecheck',(req,res)=>{
   })
 })
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "image/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}_${file.originalname}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "image/");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, `${Date.now()}_${file.originalname}`);
+//   },
+// });
 
-const upload = multer({ storage: storage }).single("file");
+// const upload = multer({ storage: storage }).single("file");
 
-router.post("/profile/img", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      res.status(400).json({ success: false });
-    } else {
-      res.status(200).json({success: true ,filepath:res.req.file.path })
-    }
-  });
+// router.post("/profile/img", (req, res) => {
+//   upload(req, res, (err) => {
+//     if (err) {
+//       res.status(400).json({ success: false });
+//     } else {
+//       res.status(200).json({success: true ,filepath:res.req.file.path })
+//     }
+//   });
+// });
+
+router.post("/profile/img",
+SetUpload('omoide/user'),
+(req, res, next) => {
+  res.status(200).json({success: true ,filepath:res.req.file.location })
 });
 
 router.post("/profile/update",(req,res)=>{
-  console.log(req.body)
+
   let temp = {
     photoURL: req.body.photoURL,
   };
@@ -70,5 +78,7 @@ router.post("/profile/update",(req,res)=>{
       res.status(400).json({ success: false });
     });
 })
+
+
 
 module.exports = router;

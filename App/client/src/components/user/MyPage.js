@@ -25,7 +25,7 @@ const MyPage = () => {
     axios.post('/api/user/profile/img', formData)
     .then(((res)=>{
       console.log(res)
-      setCurrentImg('http://localhost:5001/'+res.data.filepath)
+      setCurrentImg(res.data.filepath)
     
     }))
   }
@@ -38,7 +38,7 @@ try{
       photoURL: currentImg,
     });
   }catch(err){
-    console.log(err)
+    return alert('프로필 저장에 실패하였습니다.')
   }
   let body = {
     photoURL: currentImg,

@@ -20,6 +20,12 @@ const ListItem = styled.div`
    & h2{
      padding-top: 5px;
      margin-bottom: 15px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space:nowrap;
+     @media screen and (max-width: 477px) {
+     font-size: 22px;
+     }
    }
    .userBox{
      display: flex;
@@ -33,12 +39,18 @@ const ListItem = styled.div`
       .author{
         font-size: 16px;
         font-weight: 700;
+        @media screen and (max-width: 477px) {
+         font-size: 14px
+        }
       }
       .time{
         font-size: 12px;
         color: #636363;
         font-weight: 500;
         margin-top: 5px;
+        @media screen and (max-width: 477px) {
+         font-size: 11px
+        }
       }
      }
    }
@@ -48,6 +60,9 @@ const ListItem = styled.div`
      overflow: hidden;
      text-overflow: ellipsis;
      white-space:nowrap;
+     @media screen and (max-width: 477px) {
+       font-size: 15px
+     }
    }
    transition: 0.3s;
    &:hover{

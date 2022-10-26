@@ -58,7 +58,7 @@ const Detail = (props) => {
           </div>
         </div>    
         <span className='postContent'>{props.postInfo.content}</span>
-        {props.postInfo.image?<img src={`http://localhost:5001/${props.postInfo.image}`} alt=''/> : null}
+        {props.postInfo.image?<img src={props.postInfo.image} alt=''/> : null}
       </DetailItem>
           {user.uid === props.postInfo.author?.uid  && <div className='buttonBox'>
            <Link to={`/edit/${props.postInfo.postNum}`}><button className='edit'>수정</button></Link> 

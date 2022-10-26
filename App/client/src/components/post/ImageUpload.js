@@ -8,7 +8,8 @@ const FileUpload = (e) => {
   let formData = new FormData()
   formData.append('file',(e.target.files[0]))
   axios.post('/api/post/image/upload', formData)
-  .then(((res)=>props.setImage(res.data.filepath)))
+  .then(((res)=>{
+    props.setImage(res.data.filepath)}))
 }
 
   return (

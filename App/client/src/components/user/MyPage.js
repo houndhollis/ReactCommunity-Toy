@@ -24,7 +24,6 @@ const MyPage = () => {
     formData.append('file',(e.target.files[0]))
     axios.post('/api/user/profile/img', formData)
     .then(((res)=>{
-      console.log(res)
       setCurrentImg(res.data.filepath)
     
     }))

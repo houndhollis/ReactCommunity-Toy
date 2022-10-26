@@ -18,7 +18,7 @@ const List = (props) => {
   return (
     <ListDiv>
       <h3>추억 저장소。</h3>
-      <InfoList props={props}/>
+      <InfoList/>
       {props.postList.map((it,idx)=>{
         return (
         <Link to={`/post/${it.postNum}`} key={idx}>

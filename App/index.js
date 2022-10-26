@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose')
 const path = require('path')
 const dotenv = require("dotenv");
+dotenv.config({path:'.env'})
+
 const app = express()
 const port = process.env.PORT || 5001;
 const config = require('./server/config/key.js')
 
-dotenv.config({path:'.env'})
 app.use(express.static(path.join(__dirname, './client/build')))
 app.use('/image', express.static('./server/image'))
 app.use(express.json()) // body-parsor 
@@ -28,7 +29,6 @@ app.get("*", (요청, 응답) => {
 app.listen(port, () => {
   mongoose
   .connect(config.mongoURI)
-  // .connect(`mongodb+srv://hollis9797:${process.env.SERVER_PW}@cluster0.f5krlku.mongodb.net/Community?retryWrites=true&w=majority`)
   .then(()=>{
     console.log('Connectiong mogoDb')
   }).catch((err)=>{
@@ -36,11 +36,3 @@ app.listen(port, () => {
   })
   console.log('Server on is 5001')
 })
-
-
-/*
-1. Post MongoDB Model
-2. client CSS (Bootstrap, Emotion)
-
-
-*/

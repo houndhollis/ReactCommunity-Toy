@@ -8,7 +8,7 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const RepleContent = (props) => {
-  console.log(props)
+
   const [modalFlag,setModalFlag] = useState(false)
   const [editFlag , setEditFlag] = useState(false)
   const [reple , setReple] = useState(props.reple.reple)

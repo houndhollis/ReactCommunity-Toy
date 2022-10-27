@@ -40,6 +40,9 @@ const onSubmit = () => {
       icon:'error'
     })
   }
+  if(image === ''){
+    return alert('이미지 등록중 입니다. 잠시후 다시 실행해주세요!')
+  }
   let body = {
     title: data.title,
     content: data.content,

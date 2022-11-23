@@ -81,14 +81,6 @@ const MainPage = () => {
           <option>최신순</option>
           <option>인기순</option>
         </select>
-        {/* <DropdownButton id="input-group-dropdown-1" variant="outline-secondary" title={Sort}>
-          <Dropdown.Item onClick={() => setSort("최신순")}>
-            최신순
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => setSort("인기순")}>
-            인기순
-          </Dropdown.Item>
-        </DropdownButton> */}
       </div>
       <List postList={PostList}/>
       <div className='footer'>

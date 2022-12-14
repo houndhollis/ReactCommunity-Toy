@@ -2,7 +2,7 @@ import React from 'react'
 import { HeaderContainer,HeaderInner,Title,ImgBox} from '../style/HeaderCSS'
 import { Link ,useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import firebase from '../firebase.js'
+import firebase from '../firebase'
 
 const Header = () => {
   const navigate = useNavigate()

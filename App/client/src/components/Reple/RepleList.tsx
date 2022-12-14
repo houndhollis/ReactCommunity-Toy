@@ -2,10 +2,11 @@ import axios from 'axios'
 import {useState,useEffect} from 'react'
 import { RepleListDiv } from '../../style/RepleCSS'
 import RepleContent from './RepleContent'
+import { PostId, RepleListType } from '../../types/interfaces'
 
-const RepleList = (props) => {
+const RepleList = (props:PostId) => {
    
-  const [repleList , setRepleList] = useState([])
+  const [repleList , setRepleList] = useState<RepleListType[]>([])
 
   useEffect(()=>{
     const body = {

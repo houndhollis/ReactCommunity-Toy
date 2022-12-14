@@ -5,10 +5,11 @@ import { PostContainer,PostInner } from '../../style/PostCSS'
 import ImageUpload from './ImageUpload';
 import Swal from "sweetalert2";
 import axios from 'axios'
+import { RootState } from '../../Reducer/store';
 
 const Post = () => {
 
-const user = useSelector((state)=>state.user)
+const user = useSelector((state:RootState)=>state.user)
 const navigate = useNavigate()
 
 const [data,setData] = useState({

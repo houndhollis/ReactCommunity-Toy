@@ -3,9 +3,10 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Detail from '../../Detail'
 import RepleArea from '../Reple/RepleArea'
+import { DetailListType } from '../../types/interfaces'
 
 const PostArea = () => {
-  const [postInfo,setPostInfo] = useState({})
+  const [postInfo,setPostInfo] = useState<DetailListType>(Object)
   // const [flag,setFlag] = useState(false)
   const params = useParams()
 

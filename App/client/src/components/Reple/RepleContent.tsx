@@ -6,17 +6,18 @@ import Swal from 'sweetalert2';
 import Avatar from 'react-avatar';
 import moment from "moment";
 import "moment/locale/ko";
+import { RepleType } from '../../types/interfaces';
+import { RootState } from '../../Reducer/store';
 
-const RepleContent = (props) => {
-
+const RepleContent = (props:RepleType) => {
   const [modalFlag,setModalFlag] = useState(false)
   const [editFlag , setEditFlag] = useState(false)
   const [reple , setReple] = useState(props.reple.reple)
-  const user = useSelector((state) => state.user);
-  const ref = useRef();
+  const user = useSelector((state:RootState) => state.user);
+  const ref = useRef<HTMLInputElement>(null);
   useOnClickOutside(ref, () => setModalFlag(false));
 
-  const SetTime = (a, b) => {
+  const SetTime = (a:Date, b:Date) => {
     if (a !== b) {
       return moment(b).format("YYYY년 MMMM Do, hh:mm") + "(수정됨)";
     } else {
@@ -24,7 +25,7 @@ const RepleContent = (props) => {
     }
   };
 
-  const SubmitHandler = (e) => {
+  const SubmitHandler = (e:React.MouseEvent<HTMLButtonElement,MouseEvent>) => {
     e.preventDefault();
     let body = {
       uid : user.uid,
@@ -42,7 +43,7 @@ const RepleContent = (props) => {
     })
   }
 
-  const DeleteHandler = (e) => {
+  const DeleteHandler = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
      e.preventDefault()
      if(window.confirm('정말로 삭제하겠습니까?')){
       const body = {

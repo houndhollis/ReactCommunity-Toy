@@ -2,12 +2,14 @@ import React,{useState} from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RepleUploadContainer } from '../../style/RepleCSS'
+import { RootState } from '../../Reducer/store'
+import { PostId } from '../../types/interfaces'
 
-const RepleUpload = (props) => {
+const RepleUpload = (props:PostId) => {
   const [reple,setReple] = useState('')
-  const user = useSelector((state)=>state.user)
+  const user = useSelector((state:RootState)=>state.user)
 
-  const SubmitHandler = (e) =>{
+  const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
    e.preventDefault()
   if(!reple){
     return alert('댓글 내용을 채워주세요')

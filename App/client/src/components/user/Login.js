@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { LoginContainer,LoginInner } from '../../style/LoginCSS'
 
-import firebase from '../../firebase.js'
+import firebase from '../../firebase'
 
 const Login = () => {
   const navigate = useNavigate()

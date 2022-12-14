@@ -2,9 +2,10 @@ import React,{useState,useEffect} from 'react'
 import List from './List'
 import axios from 'axios'
 import { MainContainer } from '../style/MainPageCSS';
+import { DetailListType } from '../types/interfaces';
 
 const MainPage = () => {
-  const [PostList, setPostList] = useState([]);
+  const [PostList, setPostList] = useState<DetailListType[]>([]);
   const [Sort, setSort] = useState("최신순");
   const [SearchTerm, setSearchTerm] = useState("");
   const [Skip, setSkip] = useState(0);

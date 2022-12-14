@@ -22,6 +22,10 @@ export interface DetailInfo {
     postInfo : DetailListType
 }
 
+export interface PostList {
+    postList: DetailListType[];
+}
+
 export interface PostId {
     postId: string
 }

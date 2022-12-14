@@ -3,10 +3,11 @@ import { HeaderContainer,HeaderInner,Title,ImgBox} from '../style/HeaderCSS'
 import { Link ,useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import firebase from '../firebase'
+import { RootState } from '../Reducer/store'
 
 const Header = () => {
   const navigate = useNavigate()
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state:RootState) => state.user)
 
   return (
     <HeaderContainer>

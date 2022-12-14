@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import Avatar from 'react-avatar'
 import axios from 'axios'
 import firebase from '../../firebase'
+import { RootState } from '../../Reducer/store'
 
 const MyPage = () => {
   
   const [currentImg ,setCurrentImg] = useState('')
-  const user = useSelector((state)=>state.user)
+  const user = useSelector((state:RootState)=>state.user)
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -19,9 +20,9 @@ const MyPage = () => {
     }
   },[user])
 
-  const ImageUpload = (e) => {
-    let formData = new FormData()
-    formData.append('file',(e.target.files[0]))
+  const ImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let formData:any = new FormData()
+    formData.append('file',(e.target.files?.[0]))
     axios.post('/api/user/profile/img', formData)
     .then(((res)=>{
       setCurrentImg(res.data.filepath)
@@ -29,11 +30,11 @@ const MyPage = () => {
     }))
   }
 
-  const saveProfile = async(e) => {
+  const saveProfile = async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>,) => {
   e.preventDefault()
 
 try{
-  await firebase.auth().currentUser.updateProfile({
+  await firebase.auth().currentUser?.updateProfile({
       photoURL: currentImg,
     });
   }catch(err){

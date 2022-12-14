@@ -4,6 +4,10 @@ import { LoginContainer,LoginInner } from '../../style/LoginCSS'
 
 import firebase from '../../firebase'
 
+interface ErrorType {
+  code: string;
+}
+
 const Login = () => {
   const navigate = useNavigate()
   const [userInfo,setUserInfo] = useState({
@@ -14,7 +18,7 @@ const Login = () => {
     setUserInfo({...userInfo,[key]: e.target.value})
   }
   
-  const onLogin = async (e) => {
+  const onLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>,) => {
   const {email,pw} = userInfo
   e.preventDefault()
   if(!(email && pw)){
@@ -22,10 +26,11 @@ const Login = () => {
   }try{
     await firebase.auth().signInWithEmailAndPassword(email,pw)
     navigate('/')
-  }catch(error){
-   if(error.code === 'auth/user-not-found'){
+  }catch(error:unknown){
+    const err = error as ErrorType
+   if(err.code === 'auth/user-not-found'){
      alert('존재하지 않는 이메일 입니다.')
-   }else if(error.code === 'auth/wrong-password'){
+   }else if(err.code === 'auth/wrong-password'){
      alert('비밀번호가 일치하지 않습니다.')
    }else{
      alert('로그인이 실패하였습니다.')

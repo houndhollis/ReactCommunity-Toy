@@ -1,13 +1,14 @@
 import React,{useEffect ,useState} from 'react'
 import { useParams ,useNavigate } from 'react-router-dom'
 import { PostContainer,PostInner } from '../../style/PostCSS'
+import { DetailListType } from '../../types/interfaces'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
 const Edit = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const [postInfo,setPostInfo] = useState([])
+  const [postInfo,setPostInfo] = useState<DetailListType>(Object)
   const [title,setTitle] = useState('')
   const [content,setContent] = useState('')
 
@@ -27,7 +28,7 @@ const Edit = () => {
 
 
 
-const onSubmit = () => {
+const onSubmit = (e:React.MouseEvent<HTMLButtonElement,MouseEvent>) => {
   if(title === '' || content === ''){
    return Swal.fire({
       title:'등록실패',

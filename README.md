@@ -5,7 +5,9 @@
 
 ### 개발기간: 2022.10.20 ~ 2022.10.26
 
-### 배포주소 : https://react-omoide.herokuapp.com/
+### 배포주소 : https://omoide.fly.dev/
+## JavaScript → TypeScript로 마이그레이션 진행
+## Heroku 유료화로 인해 fly.io 로 재배포 
 
 --- 
 
